@@ -7,7 +7,14 @@ function openAtStart() {
   window.scrollTo(0, 0);
 }
 
-window.addEventListener('pageshow', openAtStart);
+function resetEntryPosition() {
+  openAtStart();
+  window.requestAnimationFrame(openAtStart);
+  window.setTimeout(openAtStart, 120);
+}
+
+window.addEventListener('pageshow', resetEntryPosition);
+window.addEventListener('load', resetEntryPosition, { once: true });
 
 const menuButton = document.querySelector('.menu-button');
 const navigation = document.querySelector('.site-nav');
