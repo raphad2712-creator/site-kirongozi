@@ -1,28 +1,82 @@
 const menuButton = document.querySelector('.menu-button');
 const navigation = document.querySelector('.site-nav');
+const menuLabel = menuButton?.querySelector('.sr-only');
+const navLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')];
+
+function setMenu(open) {
+  menuButton?.setAttribute('aria-expanded', String(open));
+  navigation?.classList.toggle('open', open);
+  document.body.classList.toggle('menu-open', open);
+  if (menuLabel) menuLabel.textContent = open ? 'Fechar menu' : 'Abrir menu';
+}
 
 menuButton?.addEventListener('click', () => {
-  const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-  menuButton.setAttribute('aria-expanded', String(!isOpen));
-  navigation.classList.toggle('open', !isOpen);
+  setMenu(menuButton.getAttribute('aria-expanded') !== 'true');
 });
 
-navigation?.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', () => {
-    navigation.classList.remove('open');
-    menuButton?.setAttribute('aria-expanded', 'false');
-  });
+navLinks.forEach((link) => link.addEventListener('click', () => setMenu(false)));
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') setMenu(false);
 });
 
-document.getElementById('year').textContent = new Date().getFullYear();
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 820) setMenu(false);
+});
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
+const year = document.getElementById('year');
+if (year) year.textContent = new Date().getFullYear();
 
-document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const revealElements = document.querySelectorAll('.reveal');
+
+if (reducedMotion || !('IntersectionObserver' in window)) {
+  revealElements.forEach((element) => element.classList.add('visible'));
+} else {
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealElements.forEach((element) => revealObserver.observe(element));
+}
+
+const sections = navLinks
+  .map((link) => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+if ('IntersectionObserver' in window) {
+  const sectionObserver = new IntersectionObserver((entries) => {
+    const current = entries.find((entry) => entry.isIntersecting);
+    if (!current) return;
+    navLinks.forEach((link) => {
+      const active = link.getAttribute('href') === `#${current.target.id}`;
+      link.classList.toggle('active', active);
+      if (active) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  }, { rootMargin: '-25% 0px -65%', threshold: 0 });
+  sections.forEach((section) => sectionObserver.observe(section));
+}
+
+const progress = document.querySelector('.scroll-progress span');
+let ticking = false;
+
+function updateProgress() {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const percentage = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  if (progress) progress.style.width = `${Math.min(100, percentage)}%`;
+  ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(updateProgress);
+    ticking = true;
+  }
+}, { passive: true });
+
+updateProgress();
