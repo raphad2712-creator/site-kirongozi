@@ -1,3 +1,14 @@
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+function openAtStart() {
+  if (window.location.hash) {
+    history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+  }
+  window.scrollTo(0, 0);
+}
+
+window.addEventListener('pageshow', openAtStart);
+
 const menuButton = document.querySelector('.menu-button');
 const navigation = document.querySelector('.site-nav');
 const menuLabel = menuButton?.querySelector('.sr-only');
