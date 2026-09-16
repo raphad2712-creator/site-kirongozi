@@ -69,6 +69,12 @@ function updateProgress() {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
   const percentage = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
   if (progress) progress.style.width = `${Math.min(100, percentage)}%`;
+  if (window.scrollY < 200) {
+    navLinks.forEach((link) => {
+      link.classList.remove('active');
+      link.removeAttribute('aria-current');
+    });
+  }
   ticking = false;
 }
 
