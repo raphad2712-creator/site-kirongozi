@@ -2,6 +2,12 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
+  <script>
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    if (window.location.hash) {
+      history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+    }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Fundação Kirongozi — preservação ambiental, memória, educação, hotelaria e experiências em contato com a natureza.">
   <meta name="theme-color" content="#111111">
