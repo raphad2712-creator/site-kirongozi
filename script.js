@@ -4,7 +4,7 @@ function openAtStart() {
   if (window.location.hash) {
     history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
   }
-  window.scrollTo(0, 0);
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 }
 
 function resetEntryPosition() {
