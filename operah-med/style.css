@@ -1,0 +1,59 @@
+:root { --ink: #4b4b4b; }
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body { font-family: Arial, Helvetica, sans-serif; color: var(--ink); }
+button, input, textarea { font: inherit; }
+.landing { position: relative; min-height: 100vh; overflow: hidden; background: #e7e7d7 url('img/background.jpg') center/cover no-repeat; }
+.content { position: relative; z-index: 3; width: min(35vw, 480px); margin-left: 11vw; padding-top: clamp(44px, 7.6vh, 84px); padding-bottom: 44px; }
+.brand { display: block; width: min(100%, 330px); }
+.brand img { display: block; width: 100%; height: auto; }
+.copy { margin-top: clamp(38px, 5.8vh, 66px); }
+.copy h1 { margin: 0 0 18px; font-size: clamp(30px, 2.7vw, 42px); line-height: 1.03; letter-spacing: -1.5px; font-weight: 800; }
+.copy p { margin: 0; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.4; letter-spacing: -.2px; }
+.form { margin-top: clamp(38px, 5vh, 55px); max-width: 450px; }
+.form .honey { display: none; }
+.form h2 { margin: 0 0 14px; font-size: 20px; font-weight: 600; }
+.form label:not(.privacy) { display: block; margin-bottom: 12px; }
+.form label:not(.privacy) span { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; color: #121212; }
+.form input:not([type='checkbox']), .form textarea { width: 100%; border: 1px solid #737373; border-radius: 5px; background: rgba(255,255,255,.96); outline: none; padding: 10px 12px; font-size: 15px; color: #242424; }
+.form input:not([type='checkbox']) { height: 46px; }
+.form textarea { min-height: 78px; resize: vertical; }
+.form input:focus, .form textarea:focus { border-color: #922eaa; box-shadow: 0 0 0 2px rgba(146,46,170,.13); }
+.privacy { display: flex; gap: 9px; align-items: flex-start; margin: 8px 0 16px; font-size: 12px; line-height: 1.35; }
+.privacy input { width: 16px; height: 16px; flex: none; margin: 0; accent-color: #922eaa; }
+.form button { min-width: 150px; height: 44px; border: 0; border-radius: 22px; background: #7539a8; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .2s, background .2s; }
+.form button:hover { background: #922eaa; transform: translateY(-1px); }
+.form button:disabled { cursor: wait; opacity: .75; }
+.form-status { display: none; margin: 10px 0 0; color: #6e278e; font-size: 13px; font-weight: 700; }
+.form-status.visible { display: block; }
+.form-status.error { color: #a22929; }
+.visual { position: absolute; z-index: 2; right: -1.5vw; bottom: -1px; width: min(59vw, 1000px); height: 94vh; display: flex; align-items: flex-end; justify-content: flex-end; }
+.visual::before { content: ""; position: absolute; width: min(47vw, 780px); aspect-ratio: 1; border-radius: 50%; left: 0; bottom: -29%; background: linear-gradient(145deg, #6d38c0 6%, #b52e9c 43%, #ef3269 70%, #ff6b26 100%); }
+.visual img { position: relative; z-index: 2; display: block; width: auto; height: min(92vh, 970px); max-width: 100%; object-fit: contain; object-position: bottom right; }
+.accent { position: absolute; z-index: 1; border-radius: 50%; background: #843cc0; }
+.accent-top { width: 86px; height: 86px; right: 11.5vw; top: 6.8vh; }
+@media (max-width: 900px) {
+  .landing { overflow: auto; min-height: 100svh; }
+  .content { width: auto; margin: 0; padding: 34px 24px 42px; }
+  .brand { width: min(100%, 300px); }
+  .copy { margin-top: 34px; max-width: 520px; }
+  .copy h1 { font-size: clamp(34px, 9vw, 52px); line-height: .92; }
+  .copy p { max-width: 480px; font-size: 16px; line-height: 1.25; }
+  .desktop-break { display: none; }
+  .form { margin-top: 30px; max-width: 480px; padding-bottom: min(77vw, 520px); }
+  .form h2 { font-size: 18px; }
+  .visual { position: absolute; width: 96vw; height: auto; right: -15vw; bottom: 0; }
+  .visual::before { width: 82vw; left: 8%; bottom: -25%; }
+  .visual img { width: 92vw; height: auto; }
+  .accent-top { width: 54px; height: 54px; right: 8vw; top: 4vh; }
+}
+@media (max-width: 430px) {
+  .content { padding-inline: 19px; }
+  .copy h1 { font-size: 36px; letter-spacing: -1.6px; }
+  .form { padding-bottom: 69vw; }
+  .visual { right: -17vw; width: 105vw; }
+  .visual img { width: 100vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}

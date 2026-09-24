@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Comunicação de alta performance para transformar presença médica em reconhecimento.">
+  <title>Operah Med</title>
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="landing">
+    <div class="accent accent-top" aria-hidden="true"></div>
+
+    <section class="content">
+      <header class="brand">
+        <img src="img/logo-operah-med.png" width="746" height="237" alt="Operah Med - Comunicação de Alta Performance">
+      </header>
+
+      <div class="copy">
+        <h1>O PALCO DA<br>AUTORIDADE MÉDICA.</h1>
+        <p>
+          Autoridade não é só criada. Precisa ser revelada.<br class="desktop-break">
+          A Operah Med existe para transformar<br class="desktop-break">
+          presença em reconhecimento.
+        </p>
+      </div>
+
+      <form id="contact-form" class="form">
+        <input type="hidden" name="_subject" value="Novo cadastro pelo site Operah Med">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off">
+
+        <h2>Faça o seu cadastro!</h2>
+
+        <label>
+          <span>Nome *</span>
+          <input type="text" name="nome" required autocomplete="name">
+        </label>
+
+        <label>
+          <span>Celular *</span>
+          <input id="celular" type="tel" name="celular" required inputmode="tel" autocomplete="tel">
+        </label>
+
+        <label>
+          <span>Mensagem</span>
+          <textarea name="mensagem" rows="3"></textarea>
+        </label>
+
+        <label class="privacy">
+          <input type="checkbox" required>
+          <span>Concordo com o uso dos meus dados para responder a este contato.</span>
+        </label>
+
+        <button type="submit">Enviar</button>
+        <p id="form-status" class="form-status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <div class="visual" aria-hidden="true">
+      <img src="img/doctors.webp" alt="">
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
